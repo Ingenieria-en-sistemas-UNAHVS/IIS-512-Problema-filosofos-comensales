@@ -1,0 +1,15 @@
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\bin\Debug\net6.0\FilosofoComensalesConsola.exe
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\bin\Debug\net6.0\FilosofoComensalesConsola.deps.json
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\bin\Debug\net6.0\FilosofoComensalesConsola.runtimeconfig.json
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\bin\Debug\net6.0\FilosofoComensalesConsola.dll
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\bin\Debug\net6.0\FilosofoComensalesConsola.pdb
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\obj\Debug\net6.0\FilosofoComensalesConsola.csproj.AssemblyReference.cache
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\obj\Debug\net6.0\FilosofoComensalesConsola.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\obj\Debug\net6.0\FilosofoComensalesConsola.AssemblyInfoInputs.cache
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\obj\Debug\net6.0\FilosofoComensalesConsola.AssemblyInfo.cs
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\obj\Debug\net6.0\FilosofoComensalesConsola.csproj.CoreCompileInputs.cache
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\obj\Debug\net6.0\FilosofoComensalesConsola.dll
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\obj\Debug\net6.0\refint\FilosofoComensalesConsola.dll
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\obj\Debug\net6.0\FilosofoComensalesConsola.pdb
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\obj\Debug\net6.0\FilosofoComensalesConsola.genruntimeconfig.cache
+C:\Users\Andres\Documents\Projects\IIS-512-Problema-filosofos-comensales\FilosofoComensalesConsola\FilosofoComensalesConsola\obj\Debug\net6.0\ref\FilosofoComensalesConsola.dll
