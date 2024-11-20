@@ -31,6 +31,7 @@ namespace FilosofosComensales
                 int cantComida = new Random().Next(1, 11);
                 filosofos[i] = new Filosofo(i + 1, $"Filósofo {i + 1}", cantComida, tenedores[i], tenedores[(i + 1) % n], logs[i]);
 
+                Console.WriteLine($"El hilo del filósofo {i + 1} se acaba de crear");
                 logs[i].Add($"El hilo del filósofo {i + 1} se acaba de crear");
                 Console.WriteLine($"Filósofo {i + 1} tiene {cantComida} de comida en su plato.");
                 logs[i].Add($"Filósofo {i + 1} tiene {cantComida} de comida en su plato.");
@@ -41,6 +42,7 @@ namespace FilosofosComensales
             foreach (var filosofo in filosofos)
             {
                 Thread hilo = new Thread(filosofo.Comer);
+                hilos.Add(hilo);
                 hilo.Start();
             }
 
@@ -70,13 +72,15 @@ namespace FilosofosComensales
     class Tenedor
     {
         private readonly Semaphore semaphore = new Semaphore(1, 1);
-        //0 = libre, 1 = ocupado
+        //0 = disponible, 1 = no disponible
         private int disponible = 0;
 
         public void Tomar()
         {
+
             semaphore.WaitOne();
-            disponible = 1; // Marca el tenedor como no disponible
+            disponible = 1; // Marca el tenedor como no disponible            
+
         }
 
         public void Liberar()
@@ -127,7 +131,8 @@ namespace FilosofosComensales
                     Log($"{Nombre} está esperando a que el tenedor derecho esté disponible.");
                     Izquierdo.Liberar(); // Libera el tenedor izquierdo para evitar interbloqueo
                     Log($"{Nombre} ha liberado su tenedor izquierdo para evitar interbloqueo.");
-                    Thread.Sleep(1000); // Espera antes de reintentar
+                    Thread.Sleep(1); // Espera aleatoria antes de reintentar
+                    Pensar();
                     continue;
                 }
 
@@ -138,7 +143,7 @@ namespace FilosofosComensales
                 // Comer mientras tenga comida
                 while (Comida > 0)
                 {
-                    Thread.Sleep(1000); // Simula el tiempo de comer
+                    Thread.Sleep(1); // Simula el tiempo de comer
                     Comida--;
                     Log($"{Nombre} comió un bocado. Comida restante: {Comida}");
                 }
@@ -154,6 +159,7 @@ namespace FilosofosComensales
                 //Thread.Sleep(4000); // Espera aleatoria para evitar inanición
             }
             Log($"{Nombre} ha terminado de comer.");
+            Pensar();
         }
 
         // Método para agregar un mensaje a la lista de logs
