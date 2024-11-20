@@ -41,7 +41,6 @@ namespace FilosofosComensales
             foreach (var filosofo in filosofos)
             {
                 Thread hilo = new Thread(filosofo.Comer);
-                hilos.Add(hilo);
                 hilo.Start();
             }
 
@@ -62,29 +61,33 @@ namespace FilosofosComensales
                     Console.WriteLine(log);
                 }
             }
+
+            Console.WriteLine("Presiona cualquier tecla para cerrar el programa");
+            Console.ReadKey();
         }
     }
 
     class Tenedor
     {
         private readonly Semaphore semaphore = new Semaphore(1, 1);
-        private bool disponible = true;
+        //0 = libre, 1 = ocupado
+        private int disponible = 0;
 
         public void Tomar()
         {
             semaphore.WaitOne();
-            disponible = false; // Marca el tenedor como no disponible
+            disponible = 1; // Marca el tenedor como no disponible
         }
 
         public void Liberar()
         {
-            disponible = true; // Marca el tenedor como disponible
+            disponible = 0; // Marca el tenedor como disponible
             semaphore.Release(); // Libera el tenedor para que otro filósofo pueda tomarlo
         }
 
         public bool EstaDisponible()
         {
-            return disponible;
+            return disponible == 0;
         }
     }
 
@@ -106,10 +109,12 @@ namespace FilosofosComensales
             Derecho = derecho;
             Logs = logs;
         }
-
+        public void Pensar() {
+            Log($"{Nombre} está pensando.");
+        }
         public void Comer()
         {
-            Log($"{Nombre} está pensando.");
+            Pensar();
             while (Comida > 0)
             {
                 // Intentar tomar el tenedor izquierdo
@@ -122,7 +127,7 @@ namespace FilosofosComensales
                     Log($"{Nombre} está esperando a que el tenedor derecho esté disponible.");
                     Izquierdo.Liberar(); // Libera el tenedor izquierdo para evitar interbloqueo
                     Log($"{Nombre} ha liberado su tenedor izquierdo para evitar interbloqueo.");
-                    Thread.Sleep(4000); // Espera aleatoria antes de reintentar
+                    Thread.Sleep(1000); // Espera antes de reintentar
                     continue;
                 }
 
@@ -133,7 +138,7 @@ namespace FilosofosComensales
                 // Comer mientras tenga comida
                 while (Comida > 0)
                 {
-                    Thread.Sleep(1); // Simula el tiempo de comer
+                    Thread.Sleep(1000); // Simula el tiempo de comer
                     Comida--;
                     Log($"{Nombre} comió un bocado. Comida restante: {Comida}");
                 }
@@ -146,7 +151,7 @@ namespace FilosofosComensales
                 Log($"{Nombre} ha liberado el tenedor izquierdo.");
 
                 Log($"{Nombre} terminó su plato");
-                Thread.Sleep(4000); // Espera aleatoria para evitar inanición
+                //Thread.Sleep(4000); // Espera aleatoria para evitar inanición
             }
             Log($"{Nombre} ha terminado de comer.");
         }
