@@ -1,6 +1,7 @@
 ﻿//Problema de los filosofos comensales
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Threading;
 
 namespace FilosofosComensales
@@ -9,33 +10,61 @@ namespace FilosofosComensales
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Ingrese el número de filósofos (máximo 10): ");
-            if (!int.TryParse(Console.ReadLine(), out int n) || n <= 0 || n > 10)
-            {
-                Console.WriteLine("Número inválido. El programa finalizará.");
-                return;
+            bool esNoValido = true;
+            int n = 0;
+            List<string> nombresFilosofos = new List<string> { "Aristoteles", "Platón", "Sócrates", "Descartes", "Kant", "Nietzsche", "Hume", "Locke", "Wittgenstein", "Russell" };
+            while (esNoValido) {
+                Console.WriteLine("Ingrese el número de filósofos (máximo 10): ");
+                int.TryParse(Console.ReadLine(), out n);
+                if (n <= 0 || n > 10)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Número inválido. Intente de nuevo");
+                    continue;
+                }
+                esNoValido = false;
             }
 
+
             // Crear tenedores y filósofos
-            Tenedor[] tenedores = new Tenedor[n];
+            Tenedor[] tenedores = new Tenedor[n==1?n+1:n];
             Filosofo[] filosofos = new Filosofo[n];
             List<string>[] logs = new List<string>[n]; // Array de logs
 
-            for (int i = 0; i < n; i++)
-            {
-                tenedores[i] = new Tenedor();
-                logs[i] = new List<string>(); // Inicializar la lista de logs para cada filósofo
-            }
-            for (int i = 0; i < n; i++)
-            {
-                int cantComida = new Random().Next(1, 11);
-                filosofos[i] = new Filosofo(i + 1, $"Filósofo {i + 1}", cantComida, tenedores[i], tenedores[(i + 1) % n], logs[i]);
+            
 
-                Console.WriteLine($"El hilo del filósofo {i + 1} se acaba de crear");
-                logs[i].Add($"El hilo del filósofo {i + 1} se acaba de crear");
-                Console.WriteLine($"Filósofo {i + 1} tiene {cantComida} de comida en su plato.");
-                logs[i].Add($"Filósofo {i + 1} tiene {cantComida} de comida en su plato.");
+            if (n == 1)
+            {
+                tenedores[0] = new Tenedor();
+                tenedores[1] = new Tenedor();
+                int cantComida = new Random().Next(1, 11);
+                logs[0] = new List<string>(); // Inicializar la lista de logs para cada filósofo
+                filosofos[0] = new Filosofo(1, nombresFilosofos[0], cantComida, tenedores[0], tenedores[1], logs[0]);
+
+                Console.WriteLine($"El hilo de {filosofos[0].Nombre} se acaba de crear");
+                logs[0].Add($"El hilo de {filosofos[0].Nombre} se acaba de crear");
+                Console.WriteLine($"{filosofos[0].Nombre} tiene {cantComida} de comida en su plato.");
+                logs[0].Add($"{filosofos[0].Nombre} tiene {cantComida} de comida en su plato.");
             }
+            else {
+                for (int i = 0; i < n; i++)
+                {
+                    tenedores[i] = new Tenedor();
+                }
+                for (int i = 0; i < n; i++)
+                {
+                    int cantComida = new Random().Next(1, 11);
+                    logs[i] = new List<string>(); // Inicializar la lista de logs para cada filósofo
+                    filosofos[i] = new Filosofo(i + 1, nombresFilosofos[i], cantComida, tenedores[i], tenedores[(i + 1) % n], logs[i]);
+
+                    Console.WriteLine($"El hilo de {filosofos[i].Nombre} se acaba de crear");
+                    logs[i].Add($"El hilo de {filosofos[i].Nombre} se acaba de crear");
+                    Console.WriteLine($"{filosofos[i].Nombre} tiene {cantComida} de comida en su plato.");
+                    logs[i].Add($"{filosofos[i].Nombre} tiene {cantComida} de comida en su plato.");
+                }
+            }
+
+            
 
             // Crear y ejecutar los hilos
             List<Thread> hilos = new List<Thread>();
@@ -128,10 +157,12 @@ namespace FilosofosComensales
                 // Verificar si el tenedor derecho está disponible antes de tomarlo
                 if (!Derecho.EstaDisponible())
                 {
+                    
                     Log($"{Nombre} está esperando a que el tenedor derecho esté disponible.");
                     Izquierdo.Liberar(); // Libera el tenedor izquierdo para evitar interbloqueo
+                    Log($"{Nombre} no puede comer.");
                     Log($"{Nombre} ha liberado su tenedor izquierdo para evitar interbloqueo.");
-                    Thread.Sleep(1); // Espera aleatoria antes de reintentar
+                    Thread.Sleep(1); // Espera antes de reintentar
                     Pensar();
                     continue;
                 }
@@ -156,7 +187,7 @@ namespace FilosofosComensales
                 Log($"{Nombre} ha liberado el tenedor izquierdo.");
 
                 Log($"{Nombre} terminó su plato");
-                //Thread.Sleep(4000); // Espera aleatoria para evitar inanición
+                
             }
             Log($"{Nombre} ha terminado de comer.");
             Pensar();
